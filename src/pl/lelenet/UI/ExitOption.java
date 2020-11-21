@@ -4,7 +4,7 @@ public class ExitOption implements Option {
 
     @Override
     public String toString() {
-        return "Exit program";
+        return "Exit";
     }
 
     @Override

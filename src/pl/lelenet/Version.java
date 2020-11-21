@@ -2,7 +2,9 @@ package pl.lelenet;
 
 import pl.lelenet.UI.Option;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +25,21 @@ public class Version implements Option {
         this.gameVersion = gameVersion;
     }
 
-    public static Version add(Version version) {
+    private static void add(Version version) {
         versions.add(version);
-        return version;
     }
 
-    public static List<Version> getVersions() {
-        return versions;
+    public static List<Option> getVersionOptions() throws IOException {
+        List<Option> options = new ArrayList<>();
+        List<Path> folders = FileManager.getDirContents(FileManager.stringToPath(autoModsFolder));
+        for (Path folder : folders) {
+            try {
+                var infoFile = new VersionInfoFile(folder.toString());
+                options.add(infoFile.getVersion());
+            }
+            catch (FileNotFoundException ignored) { }
+        }
+        return options;
     }
     public static Version getVersion(int index) {
         return versions.get(index);
@@ -82,6 +92,6 @@ public class Version implements Option {
 
     @Override
     public String toString() {
-        return friendlyName + "\t\t" + gameVersion;
+        return friendlyName + "\t\t\t" + gameVersion;
     }
 }
