@@ -7,72 +7,39 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Version implements Option {
 
-    private static final List<Version> versions = new ArrayList<>();
-    private static final String minecraftFolder = "/home/_m/.minecraft/";
-    private static final String modsFolder = minecraftFolder + "mods/";
-    private static final String autoModsFolder = minecraftFolder + "auto_mods/";
+    private final String folderName;
+    private final String friendlyName;
+    private final String gameVersion;
+    private final String lastVersionId;
 
-    private String folderName;
-    private String friendlyName;
-    private String gameVersion;
-
-    public Version(String folderName, String friendlyName, String gameVersion) {
+    public Version(String folderName, String friendlyName, String gameVersion, String lastVersionId) {
         this.folderName = folderName;
         this.friendlyName = friendlyName;
         this.gameVersion = gameVersion;
-    }
-
-    private static void add(Version version) {
-        versions.add(version);
+        this.lastVersionId = lastVersionId;
     }
 
     public static List<Option> getVersionOptions() throws IOException {
         List<Option> options = new ArrayList<>();
-        List<Path> folders = FileManager.getDirContents(FileManager.stringToPath(autoModsFolder));
+        List<Path> folders = FileManager.getDirContents(FileManager.stringToPath(Main.autoModsFolder));
         for (Path folder : folders) {
             try {
                 var infoFile = new VersionInfoFile(folder.toString());
                 options.add(infoFile.getVersion());
             }
-            catch (FileNotFoundException ignored) { }
+            catch (FileNotFoundException | NoSuchElementException ignored) { }
         }
         return options;
-    }
-    public static Version getVersion(int index) {
-        return versions.get(index);
-    }
-
-    public String getFolderName() {
-        return folderName;
-    }
-
-    public void setFolderName(String folderName) {
-        this.folderName = folderName;
-    }
-
-    public String getFriendlyName() {
-        return friendlyName;
-    }
-
-    public void setFriendlyName(String friendlyName) {
-        this.friendlyName = friendlyName;
-    }
-
-    public String getGameVersion() {
-        return gameVersion;
-    }
-
-    public void setGameVersion(String gameVersion) {
-        this.gameVersion = gameVersion;
     }
 
     private void prepareFiles() {
         try {
-            FileManager.deleteContents(modsFolder);
-            FileManager.copyContents(autoModsFolder + this.folderName, modsFolder);
+            FileManager.deleteContents(Main.modsFolder);
+            FileManager.copyContents(Main.autoModsFolder + this.folderName, Main.modsFolder);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -81,6 +48,7 @@ public class Version implements Option {
 
     public void run() {
         prepareFiles();
+        LauncherProfileSelector.selectProfile(lastVersionId);
 
         try {
             Runtime.getRuntime().exec("minecraft-launcher");
@@ -92,6 +60,6 @@ public class Version implements Option {
 
     @Override
     public String toString() {
-        return friendlyName + "\t\t\t" + gameVersion;
+        return friendlyName + "\t\t\t\t" + gameVersion;
     }
 }
