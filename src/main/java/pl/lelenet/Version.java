@@ -25,7 +25,7 @@ public class Version implements Option {
 
     public static List<Option> getVersionOptions() throws IOException {
         List<Option> options = new ArrayList<>();
-        List<Path> folders = FileManager.getDirContents(FileManager.stringToPath(Main.autoModsFolder));
+        List<Path> folders = FileManager.getDirContents(FileManager.stringToPath(Main.AUTO_MODS_FOLDER));
         for (Path folder : folders) {
             try {
                 var infoFile = new VersionInfoFile(folder.toString());
@@ -38,8 +38,8 @@ public class Version implements Option {
 
     private void prepareFiles() {
         try {
-            FileManager.deleteContents(Main.modsFolder);
-            FileManager.copyContents(Main.autoModsFolder + this.folderName, Main.modsFolder);
+            FileManager.deleteContents(Main.MODS_FOLDER);
+            FileManager.copyContents(Main.AUTO_MODS_FOLDER + this.folderName, Main.MODS_FOLDER);
         }
         catch (IOException e) {
             e.printStackTrace();

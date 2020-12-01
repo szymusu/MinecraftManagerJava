@@ -20,7 +20,7 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public Option getChosen() {
+    public Option chooseFromInput() {
         System.out.print("Choose: ");
         Scanner sc = new Scanner(System.in);
         return options.get(sc.nextInt());

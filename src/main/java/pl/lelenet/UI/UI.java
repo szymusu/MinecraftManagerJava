@@ -6,5 +6,5 @@ public interface UI {
 
     void loadOptions(List<Option> options);
 
-    Option getChosen();
+    Option chooseFromInput();
 }

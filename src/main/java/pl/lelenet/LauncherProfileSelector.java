@@ -10,7 +10,7 @@ public class LauncherProfileSelector {
     private static final String lastUsedLater = "      \"lastUsed\" : \"2020-10-20T20:32:14.199Z\",\n";
 
     public static void selectProfile(String lastVersionId) {
-        File file = new File(Main.minecraftFolder + "launcher_profiles.json");
+        File file = new File(Main.MINECRAFT_FOLDER + "launcher_profiles.json");
         try {
             String line;
             int replaceLineIndex = 0;

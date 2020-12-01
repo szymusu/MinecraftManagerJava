@@ -11,9 +11,9 @@ import java.util.List;
 
 public class Main {
 
-    public static final String minecraftFolder = System.getProperty("user.home") + "/.minecraft/";
-    public static final String modsFolder = minecraftFolder + "mods/";
-    public static final String autoModsFolder = minecraftFolder + "auto_mods/";
+    public static final String MINECRAFT_FOLDER = System.getProperty("user.home") + "/.minecraft/";
+    public static final String MODS_FOLDER = MINECRAFT_FOLDER + "mods/";
+    public static final String AUTO_MODS_FOLDER = MINECRAFT_FOLDER + "auto_mods/";
 
     public static void main(String[] args) throws IOException {
         UI selectVersion = new ConsoleUI();
@@ -23,7 +23,7 @@ public class Main {
 
         while (true) {
             try {
-                selectVersion.getChosen().run();
+                selectVersion.chooseFromInput().run();
             }
             catch (IndexOutOfBoundsException | InputMismatchException e) {
                 System.out.println("Invalid index, try again");
