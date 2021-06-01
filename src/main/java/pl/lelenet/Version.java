@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class Version implements Option {
 
@@ -46,20 +47,36 @@ public class Version implements Option {
         }
     }
 
+    private boolean versionAlreadyThere() {
+        var currentInfoFile = new VersionInfoFile(Main.MODS_FOLDER);
+        try {
+            if (currentInfoFile.getVersion().equals(this)) return true;
+        }
+        catch (FileNotFoundException ignored) { }
+        return false;
+    }
+
     public void run() {
-        prepareFiles();
+        if (!versionAlreadyThere())
+        {
+            prepareFiles();
+        }
         LauncherProfileSelector.selectProfile(lastVersionId);
 
-        try {
-            Runtime.getRuntime().exec("minecraft-launcher");
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        Main.launchLauncher();
     }
 
     @Override
     public String toString() {
         return friendlyName + "\t\t\t\t" + gameVersion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Version version = (Version) o;
+        return Objects.equals(folderName, version.folderName) && Objects.equals(friendlyName, version.friendlyName)
+         && Objects.equals(gameVersion, version.gameVersion) && Objects.equals(lastVersionId, version.lastVersionId);
     }
 }
