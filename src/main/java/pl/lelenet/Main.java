@@ -16,6 +16,7 @@ public class Main {
 
     public static void launchLauncher() {
         try {
+            System.out.println(Main.LAUNCHER_COMMAND);
             Runtime.getRuntime().exec(Main.LAUNCHER_COMMAND);
         }
         catch (IOException e) {

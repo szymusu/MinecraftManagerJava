@@ -1,6 +1,12 @@
 package pl.lelenet.UI.arg;
 
-public class List extends Arg{
+public class List extends Arg {
 
-    public List() { }
+    @Override
+    public void run() {
+
+    }
+
+    @Override
+    void reactToOther(Arg other) { }
 }
