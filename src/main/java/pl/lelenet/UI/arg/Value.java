@@ -1,6 +1,6 @@
 package pl.lelenet.UI.arg;
 
-public class Value extends Arg{
+public class Value extends Argument {
     private final String value;
 
     public Value(String value) {
@@ -17,5 +17,5 @@ public class Value extends Arg{
     }
 
     @Override
-    void reactToOther(Arg other) {}
+    void reactToOther(Argument other) {}
 }

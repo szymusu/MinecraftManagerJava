@@ -1,6 +1,8 @@
 package pl.lelenet.UI.arg;
 
-public class Version extends Arg{
+@FullName("version")
+@Abbreviation('v')
+public class Version extends Argument {
     private int versionIndex;
     private boolean forceReload = false;
 
@@ -18,8 +20,8 @@ public class Version extends Arg{
     }
 
     @Override
-    void reactToOther(Arg other) {
-        Class<? extends Arg> otherType = other.getClass();
+    void reactToOther(Argument other) {
+        Class<? extends Argument> otherType = other.getClass();
 
         if (otherType == Force.class) {
             forceReload = true;

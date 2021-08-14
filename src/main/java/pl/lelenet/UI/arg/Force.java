@@ -1,6 +1,8 @@
 package pl.lelenet.UI.arg;
 
-public class Force extends Arg {
+@FullName("force")
+@Abbreviation('f')
+public class Force extends Argument {
     private boolean standalone = true;
 
     public boolean isStandalone() {
@@ -13,7 +15,7 @@ public class Force extends Arg {
     }
 
     @Override
-    void reactToOther(Arg other) {
+    void reactToOther(Argument other) {
         if (other.getClass() == Version.class) {
             standalone = false;
         }

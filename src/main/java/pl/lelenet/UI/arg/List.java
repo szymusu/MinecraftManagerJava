@@ -1,6 +1,8 @@
 package pl.lelenet.UI.arg;
 
-public class List extends Arg {
+@FullName("list")
+@Abbreviation('l')
+public class List extends Argument {
 
     @Override
     public void run() {
@@ -8,5 +10,5 @@ public class List extends Arg {
     }
 
     @Override
-    void reactToOther(Arg other) { }
+    void reactToOther(Argument other) { }
 }
