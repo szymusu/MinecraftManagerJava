@@ -16,7 +16,10 @@ public class Version extends Argument {
 
     @Override
     public void run() {
-
+        System.out.println("loading mods with index" + versionIndex);
+        if (isForceReload()) {
+            System.out.println("and force reload");
+        }
     }
 
     @Override
@@ -26,8 +29,15 @@ public class Version extends Argument {
         if (otherType == Force.class) {
             forceReload = true;
         }
-        else if (otherType == Value.class) {
-            versionIndex = Integer.parseInt(((Value) other).getValue());
-        }
+    }
+
+    @Override
+    void reactToValue(Value value) {
+        versionIndex = Integer.parseInt(value.getValue());
+    }
+
+    @Override
+    public int valueInputCount() {
+        return 1;
     }
 }

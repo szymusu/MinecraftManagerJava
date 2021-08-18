@@ -17,29 +17,29 @@ class VersionTest {
         assertEquals(0, version.getVersionIndex());
     }
 
-    @Test
-    void reactToOthers_setsProperFields() {
-        List<Argument> arguments = new ArrayList<>();
-        arguments.add(new Version());
-        arguments.add(new Force());
-        arguments.add(new Value("1"));
+//    @Test
+//    void reactToOthers_setsProperFields() {
+//        List<Argument> arguments = new ArrayList<>();
+//        arguments.add(new Version());
+//        arguments.add(new Force());
+//        arguments.add(new Value("1"));
+//
+//        Version version = new Version();
+//        version.reactToOthers(arguments);
+//
+//        assertTrue(version.isForceReload());
+//        assertEquals(1, version.getVersionIndex());
+//    }
 
-        Version version = new Version();
-        version.reactToOthers(arguments);
-
-        assertTrue(version.isForceReload());
-        assertEquals(1, version.getVersionIndex());
-    }
-
-    @Test
-    void reactToOthers_throwsNumberFormatException_whenValueIsNotInteger() {
-        List<Argument> arguments = new ArrayList<>();
-        arguments.add(new Value("szakalakafą"));
-
-        Version version = new Version();
-
-        assertThrows(NumberFormatException.class, () -> version.reactToOthers(arguments));
-    }
+//    @Test
+//    void reactToOthers_throwsNumberFormatException_whenValueIsNotInteger() {
+//        List<Argument> arguments = new ArrayList<>();
+//        arguments.add(new Value("szakalakafą"));
+//
+//        Version version = new Version();
+//
+//        assertThrows(NumberFormatException.class, () -> version.reactToOthers(arguments));
+//    }
 
     @Test
     void argumentFactory_createsInstance_fromFullName() throws ArgumentFactory.ArgumentCreationException {

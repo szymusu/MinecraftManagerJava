@@ -11,7 +11,9 @@ public class Force extends Argument {
 
     @Override
     public void run() {
-
+        if (isStandalone()) {
+            System.out.println("forcing mod reload");
+        }
     }
 
     @Override
@@ -19,5 +21,10 @@ public class Force extends Argument {
         if (other.getClass() == Version.class) {
             standalone = false;
         }
+    }
+
+    @Override
+    void reactToValue(Value other) {
+
     }
 }

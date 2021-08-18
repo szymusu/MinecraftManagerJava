@@ -6,9 +6,12 @@ public class List extends Argument {
 
     @Override
     public void run() {
-
+        System.out.println("listing all versions");
     }
 
     @Override
     void reactToOther(Argument other) { }
+
+    @Override
+    void reactToValue(Value other) { }
 }
